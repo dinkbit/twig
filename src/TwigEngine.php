@@ -8,6 +8,7 @@
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
 */
+
 namespace Dinkbit\Twig;
 
 use Illuminate\View\Engines\EngineInterface;
@@ -21,10 +22,10 @@ use Twig_Template;
  *
  * @author Joseph Cohen <joseph.cohen@dinkbit.com>
  */
-class TwigEngine implements EngineInterface {
-
+class TwigEngine implements EngineInterface
+{
     /**
-     * Twig enviroment instance
+     * Twig enviroment instance.
      *
      * @var \Twig_Environment
      */
@@ -45,8 +46,8 @@ class TwigEngine implements EngineInterface {
     /**
      * Get the evaluated contents of the view.
      *
-     * @param  string  $path
-     * @param  array   $data
+     * @param string $path
+     * @param array  $data
      *
      * @return string
      */
@@ -60,9 +61,9 @@ class TwigEngine implements EngineInterface {
      *
      * @param string|TemplateReferenceInterface|\Twig_Template $path
      *
-     * @return \Twig_TemplateInterface
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return \Twig_TemplateInterface
      */
     protected function load($path)
     {

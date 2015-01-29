@@ -8,14 +8,15 @@
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
 */
+
 namespace Dinkbit\Twig\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Twig_Environment;
 
-class ClearCommand extends Command {
-
+class ClearCommand extends Command
+{
     /**
      * The console command name.
      *
@@ -47,7 +48,7 @@ class ClearCommand extends Command {
     /**
      * Create a new config clear command instance.
      *
-     * @param  \Illuminate\Filesystem\Filesystem  $files
+     * @param \Illuminate\Filesystem\Filesystem $files
      *
      * @return void
      */
@@ -70,11 +71,10 @@ class ClearCommand extends Command {
 
         $this->files->deleteDirectory($cacheDir);
 
-        if($this->files->exists($cacheDir)) {
+        if ($this->files->exists($cacheDir)) {
             $this->error('Could not clear Twig Cache.');
         } else {
             $this->info('Twig cached views cleared!');
         }
     }
-
 }

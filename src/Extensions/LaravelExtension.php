@@ -8,6 +8,7 @@
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
 */
+
 namespace Dinkbit\Twig\Extensions;
 
 use Twig_Extension;
@@ -18,8 +19,8 @@ use Twig_SimpleFunction;
  *
  * @author Joseph Cohen <joseph.cohen@dinkbit.com>
  */
-class LaravelExtension extends Twig_Extension {
-
+class LaravelExtension extends Twig_Extension
+{
     /**
      * Laravel extensions.
      *
@@ -28,7 +29,7 @@ class LaravelExtension extends Twig_Extension {
     protected $extensions;
 
     /**
-     * Creates a new instance of laravel extensions
+     * Creates a new instance of laravel extensions.
      *
      * @param array $extensions
      */
@@ -62,5 +63,4 @@ class LaravelExtension extends Twig_Extension {
 
         return $functions;
     }
-
 }

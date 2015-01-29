@@ -8,24 +8,23 @@
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
 */
+
 namespace Dinkbit\Twig;
 
-use Dinkbit\Twig\TwigBridge;
-use Dinkbit\Twig\TwigEngine;
 use Dinkbit\Twig\Console\ClearCommand;
 use Dinkbit\Twig\Extensions\LaravelExtension;
 use Illuminate\View\ViewServiceProvider as ServiceProvider;
 use InvalidArgumentException;
-use Twig_Loader_Filesystem;
 use Twig_Extension_Debug;
+use Twig_Loader_Filesystem;
 
 /**
  * This is the twig service provider class.
  *
  * @author Joseph Cohen <joseph.cohen@dinkbit.com>
  */
-class TwigServiceProvider extends ServiceProvider {
-
+class TwigServiceProvider extends ServiceProvider
+{
     /**
      * Bootstrap any application services.
      *
@@ -67,7 +66,7 @@ class TwigServiceProvider extends ServiceProvider {
         );
     }
 
-    /**
+   /**
     * Register the install command class.
     *
     * @return void
@@ -80,21 +79,19 @@ class TwigServiceProvider extends ServiceProvider {
    }
 
     /**
-    * Register the Twig engine implementation.
-    *
-    * @param  \Illuminate\View\Engines\EngineResolver  $resolver
-    *
-    * @return void
-    */
+     * Register the Twig engine implementation.
+     *
+     * @param \Illuminate\View\Engines\EngineResolver $resolver
+     *
+     * @return void
+     */
     public function registerTwig()
     {
-        $this->app->singleton('twig.loader', function ($app)
-        {
+        $this->app->singleton('twig.loader', function ($app) {
             return new Twig_Loader_Filesystem($app->view->getFinder()->getPaths());
         });
 
-        $this->app->singleton('twig', function ($app)
-        {
+        $this->app->singleton('twig', function ($app) {
             $debug = $this->app->config->get('app.debug');
             $cache = $this->app->config->get('view.compiled').'/twig';
             $environment = $this->app->config->get('twig.environment');
@@ -112,49 +109,42 @@ class TwigServiceProvider extends ServiceProvider {
                 $this->app->config->get('twig.extensions')
             );
 
-            foreach ($extensions as $extension)
-            {
+            foreach ($extensions as $extension) {
                 $twig->addExtension($extension);
             }
 
             if ($debug) {
-                $twig->addExtension(new Twig_Extension_Debug);
+                $twig->addExtension(new Twig_Extension_Debug());
             }
 
             return $twig;
         });
 
-        $this->app->singleton('twig.engine', function ($app)
-        {
+        $this->app->singleton('twig.engine', function ($app) {
             return new TwigEngine($app['twig']);
         });
 
-        $this->app['view.engine.resolver']->register('twig', function() {
+        $this->app['view.engine.resolver']->register('twig', function () {
             return $this->app['twig.engine'];
         });
     }
 
     /**
-    * Get registered extensions.
-    *
-    * @param  string|function|Twig_Extension $extension
-    *
-    * @throws \InvalidArgumentException
-    *
-    * @return string|function|Twig_Extension
-    */
+     * Get registered extensions.
+     *
+     * @param string|function|Twig_Extension $extension
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return string|function|Twig_Extension
+     */
     protected function getExtension($extension)
     {
-        if (is_string($extension))
-        {
+        if (is_string($extension)) {
             $extension = $this->app->make($extension);
-        }
-        elseif (is_callable($extension))
-        {
+        } elseif (is_callable($extension)) {
             $extension = $this->app->call($extension);
-        }
-        elseif (! is_a($extension, 'Twig_Extension'))
-        {
+        } elseif (! is_a($extension, 'Twig_Extension')) {
             throw new InvalidArgumentException('Invalid Twig extension, it must be a string, callable or extend "Twig_Extension"');
         }
 

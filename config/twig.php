@@ -23,11 +23,11 @@ return [
     */
 
     'environment' => [
-        'charset' => 'utf-8',
-        'auto_reload' => true,
+        'charset'          => 'utf-8',
+        'auto_reload'      => true,
         'strict_variables' => false,
-        'autoescape' => true,
-        'optimizations' => -1
+        'autoescape'       => true,
+        'optimizations'    => -1,
     ],
 
     /*
