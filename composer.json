@@ -22,12 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Arisans\\Twig\\": "src/"
+            "Artisans\\Twig\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Arisans\\Twig\\Tests\\": "tests/"
+            "Artisans\\Twig\\Tests\\": "tests/"
         }
     },
     "extra": {
@@ -36,5 +36,5 @@
         }
     },
     "minimum-stability": "dev",
-    "require": {}
+    "prefer-stable": true
 }
