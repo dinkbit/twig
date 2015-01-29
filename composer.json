@@ -1,0 +1,40 @@
+{
+    "name": "artisans/twig",
+    "description": "Simple Laravel integration with twig",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "twig"
+    ],
+    "authors": [
+        {
+            "name": "Joseph Cohen",
+            "email": "joseph.cohen@dinkbit.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "~5.0",
+        "twig/twig": "~1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Arisans\\Twig\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Arisans\\Twig\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
