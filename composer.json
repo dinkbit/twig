@@ -1,6 +1,6 @@
 {
     "name": "dinkbit/twig",
-    "description": "Simple Laravel integration with twig",
+    "description": "Simple and flexible Laravel integration with Twig template engine.",
     "license": "MIT",
     "keywords": [
         "laravel",
