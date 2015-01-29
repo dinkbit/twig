@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of Laravel Twig.
  *
@@ -7,7 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Override Twig Environment
+    |--------------------------------------------------------------------------
+    |
+    | The options listed here will be override the loaded environment on
+    | Twig compiler. Feel free to add your own options to this array
+    | to override any specific functionality of Twig.
+    |
+    */
+
+    'environment' => [
+
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -21,6 +38,21 @@ return [
     */
 
     'extensions' => [
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Enabled Laravel helpers
+    |--------------------------------------------------------------------------
+    |
+    | The Laravel helpers listed here will be automatically loaded on Twig
+    | compiler for your views. Feel free to add your own helpers to
+    | this array to extend functionality to your views.
+    |
+    */
+
+    'helpers' => [
         'dump',
         'csrf_token',
         'route',
@@ -30,5 +62,4 @@ return [
         'asset',
         'secure_asset',
     ],
-    
 ];

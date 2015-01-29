@@ -46,7 +46,7 @@ class TwigServiceProvider extends ServiceProvider {
 
         $this->publishes([$source => config_path('twig.php')]);
 
-        $this->mergeConfigFrom('twig', $source);
+        $this->mergeConfigFrom($source, 'twig');
     }
 
     /**
@@ -90,7 +90,10 @@ class TwigServiceProvider extends ServiceProvider {
 
             $twig = new Twig($this->app['twig.loader'], array_merge($default, $environment));
 
-            $extensions = $this->app->config->get('twig.extensions');
+            $extensions = array_merge(
+                [new LaravelExtension($this->app->config->get('twig.helpers'))],
+                $this->app->config->get('twig.extensions')
+            );
 
             foreach ($extensions as $extension)
             {
@@ -102,6 +105,18 @@ class TwigServiceProvider extends ServiceProvider {
             }
 
             return new TwigEngine($twig);
+        });
+    }
+
+    /**
+    * Register Twig extensions.
+    *
+    * @return void
+    */
+    public function registerLaravelhelpers()
+    {
+        $this->app->bindIf('twig.extensions', function ($app) {
+            return [];
         });
     }
 
