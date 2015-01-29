@@ -12,7 +12,9 @@ namespace Artisans\Twig;
 
 use Artisans\Twig\TwigBridge;
 use Artisans\Twig\TwigEngine;
+use Artisans\Twig\Extensions\LaravelExtension;
 use Illuminate\View\ViewServiceProvider as ServiceProvider;
+use InvalidArgumentException;
 use Twig_Loader_Filesystem;
 use Twig_Extension_Debug;
 
@@ -30,7 +32,21 @@ class TwigServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        //
+        $this->setupConfig();
+    }
+
+    /**
+     * Setup the config.
+     *
+     * @return void
+     */
+    protected function setupConfig()
+    {
+        $source = realpath(__DIR__.'/../config/twig.php');
+
+        $this->publishes([$source => config_path('twig.php')]);
+
+        $this->mergeConfigFrom('twig', $source);
     }
 
     /**
@@ -65,12 +81,21 @@ class TwigServiceProvider extends ServiceProvider {
 
             $debug = $this->app->config->get('app.debug');
             $cache = $this->app->config->get('view.compiled').'/twig';
+            $environment = $this->app->config->get('twig.environment');
 
-            $twig = new Twig($this->app['twig.loader'], [
+            $default = [
                 'cache' => $cache,
                 'debug' => $debug,
-                'auto_reload' => true,
-            ]);
+            ];
+
+            $twig = new Twig($this->app['twig.loader'], array_merge($default, $environment));
+
+            $extensions = $this->app->config->get('twig.extensions');
+
+            foreach ($extensions as $extension)
+            {
+                $twig->addExtension($extension);
+            }
 
             if ($debug) {
                 $twig->addExtension(new Twig_Extension_Debug);
@@ -78,5 +103,32 @@ class TwigServiceProvider extends ServiceProvider {
 
             return new TwigEngine($twig);
         });
+    }
+
+    /**
+    * Get registered extensions.
+    *
+    * @param  string|function|Twig_Extension $extension
+    *
+    * @throws \InvalidArgumentException
+    *
+    * @return string|function|Twig_Extension
+    */
+    protected function getExtension($extension)
+    {
+        if (is_string($extension))
+        {
+            $extension = $this->app->make($extension);
+        }
+        elseif (is_callable($extension))
+        {
+            $extension = $this->app->call($extension);
+        }
+        elseif (! is_a($extension, 'Twig_Extension'))
+        {
+            throw new InvalidArgumentException('Invalid Twig extension, it must be a string, callable or extend "Twig_Extension"');
+        }
+
+        return $extension;
     }
 }
