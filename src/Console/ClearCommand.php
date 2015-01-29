@@ -1,13 +1,13 @@
 <?php
 
 /*
-* This file is part of Dinkbit Twig.
-*
-* (c) Joseph Cohen <joseph.cohen@dinkbit.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*/
+ * This file is part of Dinkbit Twig.
+ *
+ * (c) Joseph Cohen <joseph.cohen@dinkbit.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Dinkbit\Twig\Console;
 
@@ -15,6 +15,11 @@ use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Twig_Environment;
 
+/**
+ * This is the clear command class.
+ *
+ * @author Joseph Cohen <joseph.cohen@dinkbit.com>
+ */
 class ClearCommand extends Command
 {
     /**
