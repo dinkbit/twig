@@ -62,7 +62,9 @@ class TwigServiceProvider extends ServiceProvider {
         $this->registerTwig();
         $this->registerClearCommand();
 
-        $this->app['view']->addExtension('twig', 'twig');
+        $this->app->view->addExtension(
+            $this->app->config->get('twig.file_extension', 'twig'), 'twig'
+        );
     }
 
     /**
