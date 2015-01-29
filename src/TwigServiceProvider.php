@@ -98,8 +98,9 @@ class TwigServiceProvider extends ServiceProvider {
             $environment = $this->app->config->get('twig.environment');
 
             $default = [
-                'cache' => $cache,
-                'debug' => $debug,
+                'cache'       => $cache,
+                'debug'       => $debug,
+                'auto_reload' => $debug,
             ];
 
             $twig = new Twig($this->app['twig.loader'], array_merge($default, $environment));
