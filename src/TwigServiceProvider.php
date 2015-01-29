@@ -12,6 +12,7 @@ namespace Artisans\Twig;
 
 use Artisans\Twig\TwigBridge;
 use Artisans\Twig\TwigEngine;
+use Artisans\Twig\Console\ClearCommand;
 use Artisans\Twig\Extensions\LaravelExtension;
 use Illuminate\View\ViewServiceProvider as ServiceProvider;
 use InvalidArgumentException;
@@ -33,6 +34,8 @@ class TwigServiceProvider extends ServiceProvider {
     public function boot()
     {
         $this->setupConfig();
+
+        $this->commands('command.twig.clear');
     }
 
     /**
@@ -56,12 +59,23 @@ class TwigServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        parent::register();
-
         $this->registerTwig();
+        $this->registerClearCommand();
 
         $this->app['view']->addExtension('twig', 'twig');
     }
+
+    /**
+    * Register the install command class.
+    *
+    * @return void
+    */
+   protected function registerClearCommand()
+   {
+       $this->app->singleton('command.twig.clear', function ($app) {
+           return new ClearCommand($app['files'], $app['twig']);
+       });
+   }
 
     /**
     * Register the Twig engine implementation.
@@ -77,8 +91,8 @@ class TwigServiceProvider extends ServiceProvider {
             return new Twig_Loader_Filesystem($app->view->getFinder()->getPaths());
         });
 
-        $this->app['view.engine.resolver']->register('twig', function() {
-
+        $this->app->singleton('twig', function ($app)
+        {
             $debug = $this->app->config->get('app.debug');
             $cache = $this->app->config->get('view.compiled').'/twig';
             $environment = $this->app->config->get('twig.environment');
@@ -104,19 +118,16 @@ class TwigServiceProvider extends ServiceProvider {
                 $twig->addExtension(new Twig_Extension_Debug);
             }
 
-            return new TwigEngine($twig);
+            return $twig;
         });
-    }
 
-    /**
-    * Register Twig extensions.
-    *
-    * @return void
-    */
-    public function registerLaravelhelpers()
-    {
-        $this->app->bindIf('twig.extensions', function ($app) {
-            return [];
+        $this->app->singleton('twig.engine', function ($app)
+        {
+            return new TwigEngine($app['twig']);
+        });
+
+        $this->app['view.engine.resolver']->register('twig', function() {
+            return $this->app['twig.engine'];
         });
     }
 
@@ -145,5 +156,20 @@ class TwigServiceProvider extends ServiceProvider {
         }
 
         return $extension;
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return string[]
+     */
+    public function provides()
+    {
+        return [
+            'command.twig.clear',
+            'twig.loader',
+            'twig.engine',
+            'twig',
+        ];
     }
 }
