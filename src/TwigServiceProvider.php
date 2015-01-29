@@ -1,19 +1,19 @@
 <?php
 
 /*
-* This file is part of Laravel Artisans.
+* This file is part of Dinkbit Twig.
 *
 * (c) Joseph Cohen <joseph.cohen@dinkbit.com>
 *
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
 */
-namespace Artisans\Twig;
+namespace Dinkbit\Twig;
 
-use Artisans\Twig\TwigBridge;
-use Artisans\Twig\TwigEngine;
-use Artisans\Twig\Console\ClearCommand;
-use Artisans\Twig\Extensions\LaravelExtension;
+use Dinkbit\Twig\TwigBridge;
+use Dinkbit\Twig\TwigEngine;
+use Dinkbit\Twig\Console\ClearCommand;
+use Dinkbit\Twig\Extensions\LaravelExtension;
 use Illuminate\View\ViewServiceProvider as ServiceProvider;
 use InvalidArgumentException;
 use Twig_Loader_Filesystem;

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Twig.
+ * This file is part of Dinkbit Twig.
  *
  * (c) Joseph Cohen <joseph.cohen@dinkbit.com>
  *
@@ -32,7 +32,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Enabled Laravel Twig extensions
+    | Enabled Twig extensions
     |--------------------------------------------------------------------------
     |
     | The extensions listed here will be automatically loaded on the Twig

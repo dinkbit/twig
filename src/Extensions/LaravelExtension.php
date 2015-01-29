@@ -1,14 +1,14 @@
 <?php
 
 /*
-* This file is part of Laravel Artisans.
+* This file is part of Dinkbit Twig.
 *
 * (c) Joseph Cohen <joseph.cohen@dinkbit.com>
 *
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
 */
-namespace Artisans\Twig\Extensions;
+namespace Dinkbit\Twig\Extensions;
 
 use Twig_Extension;
 use Twig_SimpleFunction;

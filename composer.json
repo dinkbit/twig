@@ -1,5 +1,5 @@
 {
-    "name": "artisans/twig",
+    "name": "dinbkit/twig",
     "description": "Simple Laravel integration with twig",
     "license": "MIT",
     "keywords": [
@@ -22,12 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Artisans\\Twig\\": "src/"
+            "Dinkbit\\Twig\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Artisans\\Twig\\Tests\\": "tests/"
+            "Dinkbit\\Twig\\Tests\\": "tests/"
         }
     },
     "extra": {
