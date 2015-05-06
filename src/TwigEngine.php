@@ -71,8 +71,16 @@ class TwigEngine implements EngineInterface
             return $path;
         }
 
+        $viewPaths = config('view.paths');
+        foreach ($viewPaths as $viewPath) {
+            if (0 === strpos($path, $viewPath)) {
+                $path = substr($path, strlen($viewPath));
+                break;
+            }
+        }
+
         try {
-            return $this->environment->loadTemplate((string) basename($path));
+            return $this->environment->loadTemplate($path);
         } catch (Twig_Error_Loader $e) {
             throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
         }
