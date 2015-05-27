@@ -144,7 +144,7 @@ class TwigServiceProvider extends ServiceProvider
             $extension = $this->app->make($extension);
         } elseif (is_callable($extension)) {
             $extension = $this->app->call($extension);
-        } elseif (! is_a($extension, 'Twig_Extension')) {
+        } elseif (!is_a($extension, 'Twig_Extension')) {
             throw new InvalidArgumentException('Invalid Twig extension, it must be a string, callable or extend "Twig_Extension"');
         }
 
