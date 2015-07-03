@@ -65,5 +65,6 @@ return [
         'secure_url',
         'asset',
         'secure_asset',
+        'elixir',
     ],
 ];
